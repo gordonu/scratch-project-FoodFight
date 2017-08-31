@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
   socket.emit('updateYelp', currentYelp);
   // Add user to user list
   users.push(socket.id);
-  console.log('Connected: %s users', users.length);
+  // console.log('Connected: %s users', users.length);
 
   // remove disconnected socket from user & cancel votes
 
@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
     const id = socket.id;
     users = users.filter(user => user !== id);
     const vote = votes ? votes.filter(thisVote => thisVote.id === id)[0] : null;
-    console.log('vote after disconnect: ', vote)
+    //console.log('vote after disconnect: ', vote)
     if (vote) {
       const choice = vote.choice;
       if (count[choice]) {
@@ -49,16 +49,16 @@ io.on('connection', (socket) => {
         allCoords = allCoords.filter(coords => coords.lat !== vote.coords[0]);
       }
     }
-    console.log('count after disconnect: ', count);
-    console.log('coords after disconnect: ', allCoords);
+    // console.log('count after disconnect: ', count);
+    // console.log('coords after disconnect: ', allCoords);
     socket.emit('updateCount', count);
     socket.broadcast.emit('updateCount', count);
     socket.disconnect();
-    console.log('Disconnected: %s users remaining', users.length);
+    // console.log('Disconnected: %s users remaining', users.length);
   });
 
   socket.on('vote', (data) => {
-    console.log('data sent on vote: ', data);
+    // console.log('data sent on vote: ', data);
     const id = socket.id;
     const choice = data[0];
     const name = data[1] || 'anonymous';
@@ -95,7 +95,7 @@ io.on('connection', (socket) => {
       socket.emit('updateYelp', currentYelp);
       socket.broadcast.emit('updateYelp', currentYelp);
     }
-    // console.log('count: ', count);
+    console.log('count: ', count);
     // console.log('votes: ', votes);
     socket.emit('updateCount', count);
     socket.broadcast.emit('updateCount', count);

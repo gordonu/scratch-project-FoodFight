@@ -44,8 +44,8 @@ describe("Food Fight", function () {
     //Setup event listener. This is the test
     client.on('updateCount', function (count) {
       // console.log('updateCount', count)
-      //console.log(Object.keys(count)[0])
-      expect(Object.keys(count)[0]).to.equal('japanese')
+       console.log(Object.keys(count))
+      expect(Object.keys(count)).to.equal('japanese')
 
       //Disconnect client connection
       client.disconnect();
@@ -53,7 +53,7 @@ describe("Food Fight", function () {
     })
 
     client.on('connect', function () {
-      client.emit('vote', ['japanese', 'Gordon'])
+      client.emit('vote', ['japanese', 'Gordon', [1, 2]])
 
     })
 
@@ -67,7 +67,7 @@ describe("Food Fight", function () {
     //Setup event listener. This is the test
     client1.on('updateCount', function (count) {
       // console.log('updateCount', count)
-      expect(Object.keys(count)[0]).to.equal('mexican')
+      expect(Object.keys(count)).to.equal('mexican')
 
       //Disconnect both client connections
       client1.disconnect();
@@ -83,7 +83,7 @@ describe("Food Fight", function () {
 
       client2.on('connect', function () {
 
-        client2.emit('vote', ['mexican', 'Gordon']);
+        client2.emit('vote', ['mexican', 'Gordon', [1, 2]]);
 
       })
 
@@ -102,7 +102,7 @@ describe("Food Fight", function () {
     client1.on('updateCount', function (count) {
       //console.log(Object.keys(count).length === 1)
       expect(Object.keys(count).length === 1)
-      expect(Object.keys(count)[0]).to.equal('japanese')
+      expect(Object.keys(count)).to.equal('japanese')
 
       //Disconnect both client connections
       client1.disconnect();
@@ -123,7 +123,7 @@ describe("Food Fight", function () {
 
       })
 
-      client1.emit('vote', ['japanese', 'Gordon'])
+      client1.emit('vote', ['japanese', 'Gordon', [1, 2]])
 
     })
 
@@ -140,7 +140,7 @@ describe("Food Fight", function () {
     client1.on('updateCount', function (count) {
       setTimeout(function () {
         console.log('updateCount', count)
-        expect(Object.keys(count)[0]).to.equal('hot dogs')
+        expect(Object.keys(count)).to.equal('hot dogs')
 
         //Disconnect both client connections
 
@@ -163,7 +163,7 @@ describe("Food Fight", function () {
 
       client2.on('vote', function () {
         console.log('hello')
-        client2.emit('vote', ['hot dogs', 'Gordon']);
+        client2.emit('vote', ['hot dogs', 'Gordon', [1, 2]]);
       })
 
 
